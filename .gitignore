@@ -1,0 +1,28 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Python bytecode & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Environment variables & secrets (Never commit credentials or PII overrides)
+.env
+.env.local
+
+# Generated CV binaries & local state caches
+output_cvs/
+backend/raw_verified_jobs.json
+backend/application_tracker.json
+config/candidate_profile.local.json
+
+# OS metadata
+.DS_Store
+Thumbs.db

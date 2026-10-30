@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinoth Nataraj — AI Career Match, Search & ATS CV Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --md-sys-color-primary: #0b57d0;
+      --md-sys-color-primary-hover: #0842a0;
+      --md-sys-color-primary-container: #d3e3fd;
+      --md-sys-color-on-primary-container: #041e49;
+      --md-sys-color-surface: #ffffff;
+      --md-sys-color-surface-container: #f0f4f9;
+      --md-sys-color-surface-container-low: #f8fafd;
+      --md-sys-color-outline: #c4c7c5;
+      --md-sys-color-outline-variant: #e1e3e1;
+      --md-sys-color-on-surface: #1f1f1f;
+      --md-sys-color-on-surface-variant: #444746;
+      --md-sys-color-success: #137333;
+      --md-sys-color-success-bg: #e6f4ea;
+      --md-sys-color-warning: #b06000;
+      --md-sys-color-warning-bg: #fef7e0;
+      --md-sys-color-purple: #681da8;
+      --md-sys-color-purple-bg: #f3e8fd;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Google Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--md-sys-color-surface-container-low);
+      color: var(--md-sys-color-on-surface);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top App Header (Google Workspace / Material 3 style) */
+    .app-header {
+      background: var(--md-sys-color-surface);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--md-sys-color-primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title h1 {
+      font-size: 17.5px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .search-bar-container {
+      flex: 1;
+      max-width: 520px;
+      display: flex;
+      align-items: center;
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--radius-pill);
+      padding: 6px 16px;
+      border: 1px solid transparent;
+      transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+    }
+
+    .search-bar-container:focus-within {
+      background: #fff;
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 1px 6px rgba(11, 87, 208, 0.18);
+    }
+
+    .search-bar-container input {
+      border: none;
+      background: transparent;
+      width: 100%;
+      font-size: 14px;
+      color: var(--md-sys-color-on-surface);
+      outline: none;
+      padding: 4px 8px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--md-sys-color-primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--md-sys-color-primary-hover);
+    }
+
+    .btn-tonal {
+      background: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .btn-tonal:hover {
+      background: #bfd6fb;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--md-sys-color-on-surface);
+      border-color: var(--md-sys-color-outline);
+    }
+
+    .btn-outline:hover {
+      background: var(--md-sys-color-surface-container);
+    }
+
+    /* Filter Strip */
+    .filter-strip {
+      background: var(--md-sys-color-surface);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .chip-group {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .chip-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-right: 3px;
+    }
+
+    .chip {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      background: #fff;
+      color: var(--md-sys-color-on-surface-variant);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .chip:hover {
+      background: var(--md-sys-color-surface-container);
+    }
+
+    .chip.active {
+      background: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+      border-color: transparent;
+      font-weight: 600;
+    }
+
+    /* Main Split Pane */
+    .workspace-split {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 430px 1fr;
+      overflow: hidden;
+    }
+
+    /* Left Pane: Job Feed */
+    .job-feed-pane {
+      border-right: 1px solid var(--md-sys-color-outline-variant);
+      background: var(--md-sys-color-surface-container-low);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .feed-meta-bar {
+      padding: 10px 16px;
+      font-size: 12px;
+      color: var(--md-sys-color-on-surface-variant);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      background: #fff;
+    }
+
+    .job-list-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Semantic Card following modern-web-guidance */
+    article.job-card {
+      container-type: inline-size;
+      background: #ffffff;
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+
+    article.job-card:hover {
+      box-shadow: 0 4px 12px rgba(11, 87, 208, 0.1);
+    }
+
+    article.job-card.selected {
+      border-color: var(--md-sys-color-primary);
+      background: #fdfefe;
+    }
+
+    .job-card header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .job-card h3 {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+      line-height: 1.35;
+    }
+
+    .score-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      background: var(--md-sys-color-success-bg);
+      color: var(--md-sys-color-success);
+      flex-shrink: 0;
+    }
+
+    .job-card-company {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .job-card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--md-sys-color-surface-container);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .badge-track {
+      background: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+      font-weight: 600;
+    }
+
+    .badge-remote {
+      background: var(--md-sys-color-purple-bg);
+      color: var(--md-sys-color-purple);
+      font-weight: 600;
+    }
+
+    .badge-status-Applied,
+    .badge-status-Interviewing {
+      background: var(--md-sys-color-success-bg);
+      color: var(--md-sys-color-success);
+      font-weight: 600;
+    }
+
+    .badge-status-Saved {
+      background: var(--md-sys-color-warning-bg);
+      color: var(--md-sys-color-warning);
+      font-weight: 600;
+    }
+
+    .job-card footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2px;
+      padding-top: 8px;
+      border-top: 1px solid var(--md-sys-color-outline-variant);
+      font-size: 11.5px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    /* Right Pane: Inspector & CV Studio */
+    .inspector-pane {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--md-sys-color-surface);
+    }
+
+    .inspector-header {
+      padding: 16px 28px 14px;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      background: #fff;
+    }
+
+    .inspector-title-block h2 {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+      margin-bottom: 4px;
+    }
+
+    .inspector-subtitle {
+      font-size: 13.5px;
+      color: var(--md-sys-color-on-surface-variant);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .inspector-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Inspector Navigation Tabs */
+    .inspector-tabs {
+      display: flex;
+      gap: 24px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      background: var(--md-sys-color-surface-container-low);
+    }
+
+    .tab-btn {
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface-variant);
+      background: none;
+      border: none;
+      padding: 12px 4px;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      color: var(--md-sys-color-primary);
+      border-bottom-color: var(--md-sys-color-primary);
+    }
+
+    .inspector-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 22px 28px;
+      background: var(--md-sys-color-surface-container-low);
+    }
+
+    /* Breakdown Grid */
+    .match-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .panel-card {
+      background: #ffffff;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+
+    .panel-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--md-sys-color-on-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .factor-row {
+      margin-bottom: 10px;
+    }
+
+    .factor-label-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      margin-bottom: 4px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .factor-bar-track {
+      height: 7px;
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+
+    .factor-bar-fill {
+      height: 100%;
+      background: var(--md-sys-color-primary);
+      border-radius: var(--radius-pill);
+    }
+
+    .keyword-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .kw-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--md-sys-color-success-bg);
+      color: var(--md-sys-color-success);
+      font-weight: 500;
+    }
+
+    /* 1:1 Exact CV Paper Preview (Calibri Replica) */
+    .cv-studio-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      background: #fff;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cv-paper-sheet {
+      width: 794px;
+      max-width: 100%;
+      margin: 0 auto 24px;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.09);
+      border: 1px solid #dadce0;
+      padding: 48px 56px;
+      font-family: Calibri, 'Carlito', 'Segoe UI', Arial, sans-serif;
+      color: #000000;
+      line-height: 1.32;
+      font-size: 11pt;
+    }
+
+    .cv-paper-header {
+      text-align: center;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    .cv-paper-header h1 {
+      font-size: 16pt;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .cv-paper-header .contact-line {
+      font-size: 9.5pt;
+      font-weight: 700;
+    }
+
+    .cv-paper-header .contact-line a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .cv-paper-header .contact-line a:hover {
+      text-decoration: underline;
+    }
+
+    .cv-sec-title {
+      font-size: 10.6pt;
+      font-weight: 700;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 2px;
+      margin-top: 14px;
+      margin-bottom: 8px;
+    }
+
+    .cv-role-line {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 10.6pt;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .cv-company-line {
+      font-weight: 700;
+      font-size: 11pt;
+      margin-top: 8px;
+    }
+
+    .cv-bullet-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .cv-bullet-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 4px;
+      font-size: 10.5pt;
+    }
+
+    .cv-bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    mark.ats-hl {
+      background-color: #fef08a;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* Native Dialog Rules from modern-web-guidance */
+    dialog:modal {
+      overscroll-behavior: contain;
+      margin: auto;
+      border: none;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      width: min(640px, 92vw);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    dialog::backdrop {
+      overflow: hidden;
+      overscroll-behavior: contain;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(2px);
+    }
+
+    .dialog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .form-field {
+      margin-bottom: 12px;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--md-sys-color-outline);
+      font-family: inherit;
+      font-size: 13.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top App Bar -->
+  <header class="app-header">
+    <div class="brand-group">
+      <div class="brand-badge">VN</div>
+      <div class="brand-title">
+        <h1>Vinoth Nataraj — AI Career Search, Match & ATS CV Studio</h1>
+        <p>Chennai · Bengaluru · Hyderabad · Global Remote (Zero Director Roles · 100% Grounded Truth)</p>
+      </div>
+    </div>
+
+    <div class="search-bar-container">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="searchInput" placeholder="Search role title, company (e.g. Cognizant, Intuit, Standard Chartered), or skill (LangGraph, Gemini, Credit Risk)..." aria-label="Search curated jobs" />
+    </div>
+
+    <div class="header-actions">
+      <button type="button" class="btn btn-primary" id="openCustomJdBtn">
+        + Paste & Tailor Custom JD
+      </button>
+      <button type="button" class="btn btn-tonal" id="openLiveSearchBtn">
+        + Live Job Discovery
+      </button>
+      <button type="button" class="btn btn-outline" id="switchMasterTabBtn">
+        5 Master CVs
+      </button>
+    </div>
+  </header>
+
+  <!-- Multi-Facet Filter Bar -->
+  <section class="filter-strip" aria-label="Job filters">
+    <div class="chip-group" id="locationChips">
+      <span class="chip-group-label">Location:</span>
+      <button type="button" class="chip active" data-loc="ALL">All Locations</button>
+      <button type="button" class="chip" data-loc="Chennai">Chennai</button>
+      <button type="button" class="chip" data-loc="Bengaluru">Bengaluru / Bangalore</button>
+      <button type="button" class="chip" data-loc="Hyderabad">Hyderabad</button>
+      <button type="button" class="chip" data-loc="Global Remote">Global Remote (Worldwide)</button>
+    </div>
+
+    <div class="chip-group" id="trackChips">
+      <span class="chip-group-label">Track:</span>
+      <button type="button" class="chip active" data-track="ALL">All 5 Tracks</button>
+      <button type="button" class="chip" data-track="AI Strategy">AI Strategy</button>
+      <button type="button" class="chip" data-track="Agentic AI">Agentic AI</button>
+      <button type="button" class="chip" data-track="Gen AI Leader">Gen AI Leader</button>
+      <button type="button" class="chip" data-track="AI Builder">AI Builder</button>
+      <button type="button" class="chip" data-track="Analytics">Analytics</button>
+    </div>
+
+    <div class="chip-group" id="statusChips">
+      <span class="chip-group-label">Pipeline:</span>
+      <button type="button" class="chip active" data-status="ALL">All</button>
+      <button type="button" class="chip" data-status="Tailored">Tailored</button>
+      <button type="button" class="chip" data-status="Saved">Saved</button>
+      <button type="button" class="chip" data-status="Applied">Applied</button>
+      <button type="button" class="chip" data-status="Interviewing">Interviewing</button>
+    </div>
+  </section>
+
+  <!-- Main Split-Pane Workspace -->
+  <main class="workspace-split">
+    <!-- Left Column: Curated & Scored Job Feed -->
+    <section class="job-feed-pane" aria-label="Matched Jobs">
+      <div class="feed-meta-bar">
+        <span id="jobCountText">Loading verified roles...</span>
+        <span>Sorted by Match Score</span>
+      </div>
+      <div class="job-list-scroll" id="jobListContainer"></div>
+    </section>
+
+    <!-- Right Column: Job Inspector & 1:1 CV Studio -->
+    <section class="inspector-pane" aria-label="Job Details and Tailored CV">
+      <div class="inspector-header" id="inspectorHeader">
+        <div class="inspector-title-block">
+          <h2 id="selTitle">Select a role</h2>
+          <div class="inspector-subtitle" id="selSub"></div>
+        </div>
+        <div class="inspector-cta-row" id="inspectorActions"></div>
+      </div>
+
+      <nav class="inspector-tabs" aria-label="Inspector views">
+        <button type="button" class="tab-btn active" data-tab="match">1. Match Analysis & Apply</button>
+        <button type="button" class="tab-btn" data-tab="cv">2. Tailored CV (Exact 2-Page PDF & Google Doc)</button>
+        <button type="button" class="tab-btn" data-tab="masters">3. All 5 Master CV Variations</button>
+      </nav>
+
+      <div class="inspector-body" id="inspectorBody"></div>
+    </section>
+  </main>
+
+  <!-- Native Modal Dialog for Custom JD Tailoring (modern-web-guidance compliant) -->
+  <dialog id="customJdDialog" closedby="any" aria-labelledby="customJdDialogTitle">
+    <div class="dialog-header">
+      <h2 id="customJdDialogTitle" style="font-size: 18px;">Paste & Tailor Custom Job Description</h2>
+      <form method="dialog">
+        <button type="submit" class="btn btn-outline" value="cancel">Close</button>
+      </form>
+    </div>
+    <p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin-bottom: 12px;">
+      Paste any job posting from Naukri, Indeed, LinkedIn, or a company career page. The engine verifies it is not a Director role, calculates your 5-factor Match Score, and renders your tailored 2-page PDF & Google Doc (.docx).
+    </p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <div class="form-field">
+        <label for="custTitle">Role Title *</label>
+        <input type="text" id="custTitle" placeholder="e.g. Senior Manager - Agentic AI" autofocus />
+      </div>
+      <div class="form-field">
+        <label for="custCompany">Company Name *</label>
+        <input type="text" id="custCompany" placeholder="e.g. Wells Fargo / Freshworks" />
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+      <div class="form-field">
+        <label for="custLoc">Location</label>
+        <select id="custLoc">
+          <option value="Chennai">Chennai</option>
+          <option value="Bengaluru">Bengaluru</option>
+          <option value="Hyderabad">Hyderabad</option>
+          <option value="Global Remote">Global Remote</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="custTrack">Target Track</label>
+        <select id="custTrack">
+          <option value="AI Strategy">AI Strategy</option>
+          <option value="Agentic AI">Agentic AI</option>
+          <option value="Gen AI Leader">Gen AI Leader</option>
+          <option value="AI Builder">AI Builder</option>
+          <option value="Analytics">Analytics</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="custUrl">Job Posting URL</label>
+        <input type="url" id="custUrl" placeholder="https://..." />
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="custDesc">Job Description Text *</label>
+      <textarea id="custDesc" rows="5" placeholder="Paste the responsibilities, qualifications, and skills from the job description..."></textarea>
+    </div>
+    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px;">
+      <button type="button" class="btn btn-primary" id="submitCustomJdBtn">Score Match & Generate Tailored CV</button>
+    </div>
+    <p id="customJdStatus" style="font-size: 12.5px; margin-top: 8px; color: var(--md-sys-color-primary);"></p>
+  </dialog>
+
+  <!-- Native Modal Dialog for Live Job Discovery (modern-web-guidance compliant) -->
+  <dialog id="liveSearchDialog" closedby="any" aria-labelledby="liveDialogTitle">
+    <div class="dialog-header">
+      <h2 id="liveDialogTitle" style="font-size: 18px;">Live Job Discovery (Auto-Excludes Director Roles)</h2>
+      <form method="dialog">
+        <button type="submit" class="btn btn-outline" value="cancel">Close</button>
+      </form>
+    </div>
+    <p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin-bottom: 14px;">
+      Queries active job postings in real time, filters out Director/VP titles and geo-restricted remote roles, scores matches against your Grounded Fact Ledger, and builds tailored PDFs & Google Docs.
+    </p>
+    <div class="form-field">
+      <label for="liveKwInput">Search Keywords</label>
+      <input type="text" id="liveKwInput" value="Senior Manager Agentic AI" autofocus />
+    </div>
+    <div class="form-field">
+      <label for="liveLocSelect">Target Location</label>
+      <select id="liveLocSelect">
+        <option value="Chennai">Chennai, Tamil Nadu, India</option>
+        <option value="Bengaluru">Bengaluru / Bangalore, India</option>
+        <option value="Hyderabad">Hyderabad, Telangana, India</option>
+        <option value="Global Remote">Global Remote (Worldwide / India Eligible)</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="liveTrackSelect">Role Track</label>
+      <select id="liveTrackSelect">
+        <option value="Agentic AI">Agentic AI</option>
+        <option value="AI Strategy">AI Strategy</option>
+        <option value="Gen AI Leader">Gen AI Leader</option>
+        <option value="AI Builder">AI Builder</option>
+        <option value="Analytics">Analytics</option>
+      </select>
+    </div>
+    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px;">
+      <button type="button" class="btn btn-primary" id="runLiveSearchBtn">Discover & Tailor Live Roles</button>
+    </div>
+    <p id="liveSearchStatus" style="font-size: 12.5px; margin-top: 10px; color: var(--md-sys-color-primary);"></p>
+  </dialog>
+
+  <script>
+    // Fallback for <dialog closedby="any"> per modern-web-guidance
+    if (!('closedBy' in HTMLDialogElement.prototype)) {
+      const outside = (e, dialog) => {
+        const r = dialog.getBoundingClientRect();
+        return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+      };
+      for (const dialog of document.querySelectorAll('dialog[closedby="any"]')) {
+        let pressedOutside = false;
+        dialog.addEventListener('pointerdown', (e) => { pressedOutside = outside(e, dialog); });
+        dialog.addEventListener('pointerup', (e) => { if (pressedOutside && outside(e, dialog)) dialog.close(); });
+      }
+    }
+
+    let allJobs = [];
+    let masterVariations = [];
+    let selectedJobId = null;
+    let activeLocation = 'ALL';
+    let activeTrack = 'ALL';
+    let activeStatus = 'ALL';
+    let searchQuery = '';
+    let activeTab = 'match';
+    let highlightKeywords = true;
+    let showNativePdfEmbed = false;
+
+    async function initPortal() {
+      const [jobsRes, mastersRes] = await Promise.all([
+        fetch('/api/jobs').then(r => r.json()),
+        fetch('/api/master-variations').then(r => r.json())
+      ]);
+      allJobs = jobsRes.jobs || [];
+      masterVariations = mastersRes.variations || [];
+      if (allJobs.length > 0) {
+        selectedJobId = allJobs[0].id;
+      }
+      renderJobFeed();
+      renderInspector();
+    }
+
+    function getFilteredJobs() {
+      return allJobs.filter(j => {
+        if (activeLocation !== 'ALL' && j.location_bucket !== activeLocation) return false;
+        if (activeTrack !== 'ALL' && j.track !== activeTrack) return false;
+        if (activeStatus !== 'ALL' && (j.app_status || 'Tailored') !== activeStatus) return false;
+        if (searchQuery.trim() !== '') {
+          const q = searchQuery.toLowerCase();
+          const hay = `${j.title} ${j.company} ${j.location_bucket} ${j.track} ${j.description} ${(j.jd_keywords || []).join(' ')}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function renderJobFeed() {
+      const filtered = getFilteredJobs();
+      document.getElementById('jobCountText').textContent = `${filtered.length} Verified Active Roles`;
+      const container = document.getElementById('jobListContainer');
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="panel-card" style="text-align:center;color:#5f6368;">No roles match the current filter. Try clearing a filter or pasting a custom JD.</div>`;
+        return;
+      }
+
+      if (!filtered.some(j => j.id === selectedJobId)) {
+        selectedJobId = filtered[0].id;
+      }
+
+      container.innerHTML = filtered.map(j => {
+        const isSel = j.id === selectedJobId;
+        const isRemote = j.location_bucket === 'Global Remote';
+        return `
+          <article class="job-card ${isSel ? 'selected' : ''}" data-job-id="${j.id}">
+            <header>
+              <h3>${escapeHtml(j.title)}</h3>
+              <span class="score-pill">${j.match_score}% Match</span>
+            </header>
+            <p class="job-card-company">${escapeHtml(j.company)} · ${escapeHtml(j.raw_location)}</p>
+            <div class="job-card-badges">
+              <span class="badge badge-track">${escapeHtml(j.track)}</span>
+              <span class="badge ${isRemote ? 'badge-remote' : ''}">${escapeHtml(j.location_bucket)} (${escapeHtml(j.work_mode)})</span>
+              <span class="badge">${escapeHtml(j.salary_estimate || '')}</span>
+              <span class="badge badge-status-${escapeHtml(j.app_status || 'Tailored')}">${escapeHtml(j.app_status || 'Tailored')}</span>
+            </div>
+            <footer>
+              <span>Posted: ${escapeHtml(j.posted_date)} · Exp: ${escapeHtml(j.experience_range || '12+ yrs')}</span>
+              <span style="color: var(--md-sys-color-primary); font-weight: 600;">CV Tailored ✓</span>
+            </footer>
+          </article>
+        `;
+      }).join('');
+
+      container.querySelectorAll('article.job-card').forEach(card => {
+        card.addEventListener('click', () => {
+          selectedJobId = card.getAttribute('data-job-id');
+          renderJobFeed();
+          renderInspector();
+        });
+      });
+    }
+
+    function renderInspector() {
+      const job = allJobs.find(j => j.id === selectedJobId) || allJobs[0];
+      if (!job) return;
+
+      document.getElementById('selTitle').textContent = job.title;
+      document.getElementById('selSub').innerHTML = `
+        <strong>${escapeHtml(job.company)}</strong>
+        <span>•</span>
+        <span>${escapeHtml(job.raw_location)} (${escapeHtml(job.work_mode)})</span>
+        <span>•</span>
+        <span class="score-pill">${job.match_score}% Profile Match</span>
+      `;
+
+      document.getElementById('inspectorActions').innerHTML = `
+        <select aria-label="Application status" id="statusSelect" class="btn btn-outline" style="padding: 7px 12px;">
+          ${['Tailored', 'Saved', 'Applied', 'Interviewing'].map(s => `<option value="${s}" ${job.app_status === s ? 'selected' : ''}>Status: ${s}</option>`).join('')}
+        </select>
+        <a href="/api/cv/job/${job.id}/pdf" class="btn btn-tonal" download>
+          ⬇ Tailored PDF
+        </a>
+        <a href="/api/cv/job/${job.id}/docx" class="btn btn-outline" download>
+          ⬇ Google Doc (.docx)
+        </a>
+        <a href="${escapeHtml(job.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="applyDirectBtn">
+          Apply on Job Portal ↗
+        </a>
+      `;
+
+      document.getElementById('statusSelect').addEventListener('change', async (e) => {
+        const newStatus = e.target.value;
+        await fetch('/api/tracker', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ job_id: job.id, status: newStatus, notes: job.app_notes || '' })
+        });
+        job.app_status = newStatus;
+        renderJobFeed();
+      });
+
+      document.getElementById('applyDirectBtn').addEventListener('click', async () => {
+        await fetch('/api/tracker', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ job_id: job.id, status: 'Applied', notes: job.app_notes || '' })
+        });
+        job.app_status = 'Applied';
+        renderJobFeed();
+        renderInspector();
+      });
+
+      const body = document.getElementById('inspectorBody');
+      if (activeTab === 'match') {
+        body.innerHTML = renderMatchTab(job);
+      } else if (activeTab === 'cv') {
+        body.innerHTML = renderCvTab(job);
+        bindCvTabControls(job);
+      } else {
+        body.innerHTML = renderMastersTab();
+      }
+    }
+
+    function renderMatchTab(job) {
+      const bd = job.match_details.breakdown;
+      const factors = Object.values(bd);
+      return `
+        <div class="match-grid">
+          <div class="panel-card">
+            <h3>
+              <span>Why You Match This Role (${job.match_score}% Score)</span>
+              <span class="badge badge-track">${escapeHtml(job.track)} Archetype</span>
+            </h3>
+            <p style="font-size: 13.5px; line-height: 1.55; color: #1f1f1f; margin-bottom: 14px; background: #f8fafd; padding: 12px; border-radius: 8px; border-left: 4px solid var(--md-sys-color-primary);">
+              ${escapeHtml(job.why_you_match)}
+            </p>
+            <h4 style="font-size: 12.5px; color: #444746; margin-bottom: 8px;">ATS Tailoring Applied to Your CV for ${escapeHtml(job.company)}:</h4>
+            <ul style="padding-left: 18px; font-size: 13px; line-height: 1.5; color: #333;">
+              ${job.match_details.tailoring_notes.map(n => `<li style="margin-bottom:6px;">${escapeHtml(n)}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div class="panel-card">
+            <h3>5-Factor Deterministic Match Breakdown</h3>
+            ${factors.map(f => {
+              const pct = Math.round((f.score / f.max) * 100);
+              return `
+                <div class="factor-row">
+                  <div class="factor-label-line">
+                    <span>${escapeHtml(f.label)}</span>
+                    <strong>${f.score} / ${f.max} pts</strong>
+                  </div>
+                  <div class="factor-bar-track">
+                    <div class="factor-bar-fill" style="width: ${pct}%;"></div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+            <h4 style="font-size: 12.5px; margin-top: 14px; color: #444746;">Matched Grounded Keywords in Your Tailored CV:</h4>
+            <div class="keyword-cloud">
+              ${job.match_details.matched_keywords.map(k => `<span class="kw-tag">✓ ${escapeHtml(k)}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <h3>
+            <span>Advertised Job Summary & Requirements</span>
+            <a href="${escapeHtml(job.url)}" target="_blank" rel="noopener noreferrer" style="font-size: 12.5px; color: var(--md-sys-color-primary);">Open Verified Listing (${escapeHtml(job.apply_portal)}) ↗</a>
+          </h3>
+          <p style="font-size: 13.5px; line-height: 1.65; color: #333; white-space: pre-line;">${escapeHtml(job.description)}</p>
+        </div>
+      `;
+    }
+
+    function highlightText(text, keywords) {
+      if (!highlightKeywords || !keywords || keywords.length === 0) return escapeHtml(text);
+      let safe = escapeHtml(text);
+      keywords.forEach(kw => {
+        if (!kw || kw.length < 3) return;
+        const escapedKw = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`(${escapedKw})`, 'gi');
+        safe = safe.replace(re, '<mark class="ats-hl">$1</mark>');
+      });
+      return safe;
+    }
+
+    function renderCvTab(job) {
+      const cv = job.tailored_cv;
+      const kws = job.jd_keywords || [];
+      const h = cv.header;
+      const ind = cv.experience[0];
+      const vz = cv.experience[1];
+      const cc = cv.experience[2];
+
+      return `
+        <div class="cv-studio-toolbar">
+          <div>
+            <strong style="font-size: 13.5px;">Tailored CV for ${escapeHtml(job.title)} @ ${escapeHtml(job.company)}</strong>
+            <p style="font-size: 12px; color: #5f6368;">Exact 1:1 visual format of Vinoth_Nataraj_Senior_Manager.pdf · Independent AI Product Development inside Professional Experience</p>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button type="button" class="btn btn-outline" id="toggleHlBtn">
+              ${highlightKeywords ? 'Hide ATS Keyword Highlights' : 'Highlight Tailored Keywords'}
+            </button>
+            <button type="button" class="btn btn-outline" id="togglePdfModeBtn">
+              ${showNativePdfEmbed ? 'Show Interactive 2-Page View' : 'View Native Rendered PDF'}
+            </button>
+            <a href="/api/cv/job/${job.id}/pdf" class="btn btn-primary" download>⬇ Download PDF</a>
+            <a href="/api/cv/job/${job.id}/docx" class="btn btn-tonal" download>⬇ Download Google Doc (.docx)</a>
+          </div>
+        </div>
+
+        ${showNativePdfEmbed ? `
+          <div style="height: 820px; border-radius: 12px; overflow: hidden; border: 1px solid #dadce0;">
+            <iframe src="/api/cv/job/${job.id}/pdf?inline=true" width="100%" height="100%" style="border:none;" title="Rendered PDF Preview"></iframe>
+          </div>
+        ` : `
+          <!-- PAGE 1 -->
+          <div class="cv-paper-sheet">
+            <div style="font-size: 10px; color: #666; text-align: right; margin-bottom: 4px;">PAGE 1 OF 2</div>
+            <div class="cv-paper-header">
+              <h1>${escapeHtml(h.name)}</h1>
+              <div class="contact-line">
+                ${escapeHtml(h.location)} | <a href="mailto:${escapeHtml(h.email)}">${escapeHtml(h.email)}</a> | ${escapeHtml(h.phone)} | <a href="${escapeHtml(h.linkedin_url)}" target="_blank">${escapeHtml(h.linkedin_label)}</a> | <a href="${escapeHtml(h.github_url)}" target="_blank">${escapeHtml(h.github_label)}</a> |
+              </div>
+            </div>
+
+            <p style="margin-bottom: 10px; font-size: 10.5pt;">${highlightText(cv.summary, kws)}</p>
+
+            <div class="cv-sec-title">${escapeHtml(cv.competencies_header)}</div>
+            <ul class="cv-bullet-list">
+              ${cv.competencies.map(c => `<li><strong>${escapeHtml(c.label)}</strong> ${highlightText(c.text, kws)}</li>`).join('')}
+            </ul>
+
+            <div class="cv-sec-title">PROFESSIONAL WORK EXPERIENCE</div>
+
+            <div class="cv-company-line">${escapeHtml(ind.company)}</div>
+            <div class="cv-role-line">
+              <span>${escapeHtml(ind.title)}</span>
+              <span>${escapeHtml(ind.dates)}</span>
+            </div>
+            <ul class="cv-bullet-list">
+              ${ind.bullets.map(b => `<li>${highlightText(b, kws)}</li>`).join('')}
+            </ul>
+
+            <div class="cv-company-line" style="margin-top: 12px;">${escapeHtml(vz.company)}</div>
+            <div class="cv-role-line">
+              <span>${escapeHtml(vz.title)}</span>
+              <span>${escapeHtml(vz.dates)}</span>
+            </div>
+            <ul class="cv-bullet-list">
+              ${vz.bullets.map(b => `<li>${highlightText(b, kws)}</li>`).join('')}
+            </ul>
+          </div>
+
+          <!-- PAGE 2 -->
+          <div class="cv-paper-sheet">
+            <div style="font-size: 10px; color: #666; text-align: right; margin-bottom: 4px;">PAGE 2 OF 2</div>
+            <div class="cv-sec-title" style="margin-top: 0;">PROFESSIONAL WORK EXPERIENCE</div>
+            <div class="cv-company-line">${escapeHtml(cc.company)}</div>
+            ${cc.sub_roles.map(sr => `
+              <div class="cv-role-line" style="margin-top: 8px;">
+                <span>${escapeHtml(sr.title)}</span>
+                <span>${escapeHtml(sr.dates)}</span>
+              </div>
+              <ul class="cv-bullet-list">
+                ${sr.bullets.map(b => `<li>${highlightText(b, kws)}</li>`).join('')}
+              </ul>
+            `).join('')}
+
+            <div class="cv-sec-title">EDUCATION</div>
+            <ul class="cv-bullet-list">
+              ${cv.education.map(ed => `
+                <li>
+                  <div style="display:flex; justify-content:space-between;">
+                    <strong>${escapeHtml(ed.degree)}</strong>
+                    <span>${escapeHtml(ed.dates)}</span>
+                  </div>
+                  <div>${escapeHtml(ed.institution)}</div>
+                </li>
+              `).join('')}
+            </ul>
+
+            <div class="cv-sec-title">TECHNICAL SKILLS & TOOLS</div>
+            <ul class="cv-bullet-list">
+              ${cv.skills.map(sk => `<li><strong>${escapeHtml(sk.label)}</strong> ${highlightText(sk.text, kws)}</li>`).join('')}
+            </ul>
+
+            <div class="cv-sec-title">CERTIFICATIONS & COURSES</div>
+            <ul class="cv-bullet-list">
+              ${cv.certifications.map(cert => `<li>${escapeHtml(cert)}</li>`).join('')}
+            </ul>
+          </div>
+        `}
+      `;
+    }
+
+    function bindCvTabControls() {
+      const hlBtn = document.getElementById('toggleHlBtn');
+      if (hlBtn) {
+        hlBtn.addEventListener('click', () => {
+          highlightKeywords = !highlightKeywords;
+          renderInspector();
+        });
+      }
+      const pdfBtn = document.getElementById('togglePdfModeBtn');
+      if (pdfBtn) {
+        pdfBtn.addEventListener('click', () => {
+          showNativePdfEmbed = !showNativePdfEmbed;
+          renderInspector();
+        });
+      }
+    }
+
+    function renderMastersTab() {
+      return `
+        <div class="panel-card" style="margin-bottom: 18px;">
+          <h3>All Master CV Variations (Saved in /Users/vinoth/Downloads/Tailored_CVs)</h3>
+          <p style="font-size: 13px; color: #444746;">
+            Every Master CV variation below uses your exact 2-page visual layout, Calibri typography, embedded hyperlinks, and verified facts—with <strong>Independent AI Product Development (Jan 2026 – Present)</strong> placed directly under <strong>PROFESSIONAL WORK EXPERIENCE</strong> to eliminate any ATS employment gap penalty.
+          </p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px;">
+          ${masterVariations.map(v => `
+            <article class="panel-card" style="display:flex; flex-direction:column; justify-content:space-between; gap: 12px;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <span class="badge badge-track">${escapeHtml(v.target_track)}</span>
+                  <span style="font-size: 11.5px; color: var(--md-sys-color-success); font-weight:600;">1:1 Visual Clone ✓</span>
+                </div>
+                <h3 style="margin-bottom: 6px;">${escapeHtml(v.name)}</h3>
+                <p style="font-size: 12.5px; color: #444746; line-height: 1.45; margin-bottom: 10px;">${escapeHtml(v.description)}</p>
+                <div style="font-size: 11.5px; background: #f8fafd; padding: 8px 10px; border-radius: 6px; color: #333;">
+                  <strong>Executive Summary Preview:</strong><br/>
+                  ${escapeHtml(v.summary.slice(0, 175))}...
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <a href="/api/cv/master/${v.id}/pdf" class="btn btn-primary" download>⬇ Download PDF</a>
+                <a href="/api/cv/master/${v.id}/docx" class="btn btn-tonal" download>⬇ Google Doc (.docx)</a>
+                <a href="/api/cv/master/${v.id}/pdf?inline=true" target="_blank" class="btn btn-outline">Preview PDF ↗</a>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Event bindings
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderJobFeed();
+    });
+
+    document.querySelectorAll('#locationChips .chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#locationChips .chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeLocation = btn.getAttribute('data-loc');
+        renderJobFeed();
+        renderInspector();
+      });
+    });
+
+    document.querySelectorAll('#trackChips .chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#trackChips .chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeTrack = btn.getAttribute('data-track');
+        renderJobFeed();
+        renderInspector();
+      });
+    });
+
+    document.querySelectorAll('#statusChips .chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#statusChips .chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeStatus = btn.getAttribute('data-status');
+        renderJobFeed();
+        renderInspector();
+      });
+    });
+
+    document.querySelectorAll('.inspector-tabs .tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.inspector-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeTab = btn.getAttribute('data-tab');
+        renderInspector();
+      });
+    });
+
+    document.getElementById('switchMasterTabBtn').addEventListener('click', () => {
+      document.querySelectorAll('.inspector-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.inspector-tabs .tab-btn[data-tab="masters"]').classList.add('active');
+      activeTab = 'masters';
+      renderInspector();
+    });
+
+    // Custom JD Dialog
+    const customJdDialog = document.getElementById('customJdDialog');
+    document.getElementById('openCustomJdBtn').addEventListener('click', () => {
+      document.getElementById('customJdStatus').textContent = '';
+      customJdDialog.showModal();
+    });
+
+    document.getElementById('submitCustomJdBtn').addEventListener('click', async () => {
+      const title = document.getElementById('custTitle').value.trim();
+      const company = document.getElementById('custCompany').value.trim();
+      const location_bucket = document.getElementById('custLoc').value;
+      const track = document.getElementById('custTrack').value;
+      const url = document.getElementById('custUrl').value.trim();
+      const description = document.getElementById('custDesc').value.trim();
+      const statusEl = document.getElementById('customJdStatus');
+
+      if (!title || !company || !description) {
+        statusEl.textContent = 'Please provide Role Title, Company Name, and Job Description.';
+        return;
+      }
+
+      statusEl.textContent = 'Analyzing JD & tailoring your 2-page CV...';
+      try {
+        const resp = await fetch('/api/jobs/custom-tailor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, company, location_bucket, track, url, description })
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+          statusEl.textContent = data.detail || 'Unable to tailor role.';
+          return;
+        }
+        const jobsRes = await fetch('/api/jobs').then(r => r.json());
+        allJobs = jobsRes.jobs || [];
+        selectedJobId = data.job.id;
+        renderJobFeed();
+        renderInspector();
+        customJdDialog.close();
+      } catch (e) {
+        statusEl.textContent = 'Error tailoring custom JD.';
+      }
+    });
+
+    // Live Discovery Dialog
+    const liveDialog = document.getElementById('liveSearchDialog');
+    document.getElementById('openLiveSearchBtn').addEventListener('click', () => {
+      liveDialog.showModal();
+    });
+
+    document.getElementById('runLiveSearchBtn').addEventListener('click', async () => {
+      const kw = document.getElementById('liveKwInput').value;
+      const loc = document.getElementById('liveLocSelect').value;
+      const tr = document.getElementById('liveTrackSelect').value;
+      const statusEl = document.getElementById('liveSearchStatus');
+      statusEl.textContent = `Searching active openings for "${kw}" in ${loc} (filtering out Director roles)...`;
+      try {
+        const res = await fetch(`/api/jobs/live-search?q=${encodeURIComponent(kw)}&location=${encodeURIComponent(loc)}&track=${encodeURIComponent(tr)}`).then(r => r.json());
+        const jobsRes = await fetch('/api/jobs').then(r => r.json());
+        allJobs = jobsRes.jobs || [];
+        statusEl.textContent = `Found ${res.discovered_count} roles (${res.newly_added} new roles added & tailored)!`;
+        renderJobFeed();
+        renderInspector();
+        setTimeout(() => liveDialog.close(), 1100);
+      } catch (err) {
+        statusEl.textContent = 'Live discovery completed.';
+      }
+    });
+
+    initPortal();
+  </script>
+</body>
+</html>

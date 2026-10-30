@@ -1,0 +1,11 @@
+{
+  "name": "Candidate Name",
+  "location": "Chennai",
+  "email": "candidate@example.com",
+  "phone": "+91 0000000000",
+  "linkedin_url": "https://www.linkedin.com/in/example/",
+  "github_url": "https://github.com/vinailead",
+  "target_locations": ["Chennai", "Bengaluru", "Hyderabad", "Global Remote"],
+  "target_tracks": ["AI Strategy", "AI Builder", "Analytics", "Gen AI Leader", "Agentic AI"],
+  "exclude_titles": ["Director", "VP", "Vice President"]
+}
